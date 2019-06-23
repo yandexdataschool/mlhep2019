@@ -45,6 +45,7 @@ setup(
     'tqdm',
     'matplotlib',
     'numpy',
+    'scipy',
     'torch',
     'torchvision',
   ]
