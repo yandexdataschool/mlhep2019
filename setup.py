@@ -2,7 +2,7 @@
   Utility package for MLHEP-2019 summer school.
 """
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from codecs import open
 import os
@@ -39,7 +39,7 @@ setup(
 
   keywords='Machine Learning',
 
-  packages=['mlhep2019'],
+  packages=find_packages('.'),
 
   install_requires=[
     'tqdm',
