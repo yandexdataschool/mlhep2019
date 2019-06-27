@@ -60,6 +60,8 @@ def nuisance_prediction_hist(predictions, nuisance, names=None, nuisance_bins=20
     for proba in predictions
   ]
 
+  max_v = max([ np.max(hist) for hist in hists ])
+
   plt.subplots(nrows=nuisance_bins, ncols=len(predictions), figsize=(5 * len(predictions), 2 * nuisance_bins))
 
   for j, _ in enumerate(predictions):
@@ -71,6 +73,7 @@ def nuisance_prediction_hist(predictions, nuisance, names=None, nuisance_bins=20
         (p_bins[1:] + p_bins[:-1]) / 2,
         hists[j][:, nuisance_bins - i - 1]
       )
+      plt.ylim([0, max_v])
 
       if i == 0:
         if names is not None:
