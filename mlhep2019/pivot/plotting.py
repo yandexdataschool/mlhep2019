@@ -33,7 +33,7 @@ def draw_response(xs, ys, probabilities, data, labels):
 
   plt.contour(xs, ys, probabilities, levels=[0.5], colors=['black'], linewidths=[3], linestyles=['dashed'])
 
-def nuisance_prediction_hist(predictions, nuisance, names=None, nuisance_bins=None, prediction_bins=20):
+def nuisance_prediction_hist(predictions, nuisance, names=None, nuisance_bins=20, prediction_bins=20):
   """
   Plots distribution of predictions against nuisance parameter.
 
@@ -50,11 +50,8 @@ def nuisance_prediction_hist(predictions, nuisance, names=None, nuisance_bins=No
     nuisance_bins = np.max(nuisance) + 1
     nu_bins=np.arange(nuisance_bins + 1) - 0.5
   else:
-    if nuisance_bins is None:
-      nuisance_bins = 20
-
     delta = np.max(nuisance) - np.min(nuisance)
-    nu_bins=np.linspace(np.min(nuisance) - 1e-3 * delta, np.max(nuisance) + 1e-3 * delta, num=nuisance_bins)
+    nu_bins=np.linspace(np.min(nuisance) - 1e-3 * delta, np.max(nuisance) + 1e-3 * delta, num=nuisance_bins + 1)
 
   p_bins = np.linspace(0, 1, num=prediction_bins)
 
