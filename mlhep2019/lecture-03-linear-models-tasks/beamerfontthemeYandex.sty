@@ -1,0 +1,240 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%  Yandex font theme for LaTeX beamer class.                                   %
+%  Copyright 2015 by Yandex.                                                   %
+%  Author: Kirill Chuvilin <kirill.chuvilin@yandex.ru>, 2015                   %
+%                                                                              %
+%  Options available:                                                          %
+%  * keepfontsizes - don't override beamer font sizes                          %
+%  * keepsansfont  - don't override sans family font                           %
+%  * keepmonofont  - don't override mono family font                           %
+%  * keepmathfont  - don't override font for math                              %
+%  * keepfonts     - don't override fonts (sans, mono and math)                %
+%                                                                              %
+%  XeLaTeX compilator needed in the case of fonts override.                    %
+%  "Textbook New" font system installation needed in the case of sans or math  %
+%  fonts override.                                                             %
+%  "Input Mono" font system installation needed in the case of mono font       %
+%  override.                                                                   %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Options processing.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Override beamer font sizes or not.
+\newif\if@yandex@keepfontsizes@
+\@yandex@keepfontsizes@false
+\DeclareOption{keepfontsizes}{\@yandex@keepfontsizes@true}
+
+% Override sans family font or not.
+\newif\if@yandex@keepsansfont@
+\@yandex@keepsansfont@false
+\DeclareOption{keepsansfont}{\@yandex@keepsansfont@true}
+
+% Override mono family font or not.
+\newif\if@yandex@keepmonofont@
+\@yandex@keepmonofont@false
+\DeclareOption{keepmonofont}{\@yandex@keepmonofont@true}
+
+% Override font for math or not.
+\newif\if@yandex@keepmathfont@
+\@yandex@keepmathfont@false
+\DeclareOption{keepmathfont}{\@yandex@keepmathfont@true}
+
+% Override fonts or not.
+\DeclareOption{keepfonts}{
+	\@yandex@keepsansfont@true
+	\@yandex@keepmonofont@true
+	\@yandex@keepmathfont@true
+}
+
+\ProcessOptions
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% External packages.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<presentation>
+
+\if@yandex@keepmathfont@\else% if the math font should be redefined
+	\usepackage{unicode-math} % math fonts control
+\fi%
+
+\mode<all>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fonts for elements.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<presentation>
+
+\setbeamerfont{normal text}{size=\normalsize,series=\mdseries,shape=\upshape}
+\setbeamerfont{alerted text}{}
+\setbeamerfont{example text}{}
+
+\setbeamerfont{structure}{}
+\setbeamerfont{tiny structure}{size=\tiny}
+
+\setbeamerfont{title}{size=\huge}
+\setbeamerfont{title in head/foot}{}
+%\setbeamerfont{title in sidebar}{}
+
+\setbeamerfont{subtitle}{size=\normalsize,parent=title}
+
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{author in head/foot}{}
+%\setbeamerfont{author in sidebar}{size=\tiny}
+
+\setbeamerfont{institute}{size=\footnotesize,series=\bfseries}
+\setbeamerfont{institute in head/foot}{}
+%\setbeamerfont{institute in sidebar}{}
+
+\setbeamerfont{date}{}
+\setbeamerfont{date in head/foot}{}
+%\setbeamerfont{date in sidebar}{}
+
+%\setbeamerfont{part name}{size=\LARGE}
+%\setbeamerfont{part title}{size=\LARGE,parent=title}
+
+\setbeamerfont{section name}{size=\huge}
+\setbeamerfont{section title}{size=\huge}
+
+\setbeamerfont{section in toc}{}
+\setbeamerfont{section in toc shaded}{parent=section in toc}
+\setbeamerfont{section in head/foot}{}
+%\setbeamerfont{section in sidebar}{size=\tiny}
+%\setbeamerfont{section number projected}{size=\small,parent={section in toc,projected text}}
+
+\setbeamerfont{subsection name}{parent=subsection title}
+\setbeamerfont{subsection title}{size=\normalsize}
+
+\setbeamerfont{subsection in toc}{}
+\setbeamerfont{subsection in toc shaded}{parent=subsection in toc}
+\setbeamerfont{subsection in head/foot}{}
+%\setbeamerfont{subsection in sidebar}{}
+
+\setbeamerfont{subsubsection in toc}{size=\footnotesize}
+\setbeamerfont{subsubsection in toc shaded}{parent=subsubsection in toc}
+\setbeamerfont{subsubsection in head/foot}{}
+%\setbeamerfont{subsubsection in sidebar}{}
+
+\setbeamerfont{headline}{size=\footnotesize,series=\bfseries,shape=\upshape}
+\setbeamerfont{footline}{size=\footnotesize,series=\bfseries,shape=\upshape}
+
+%\setbeamerfont{sidebar}{size=\Tiny,parent={tiny structure}}
+%\setbeamerfont{sidebar left}{parent=sidebar}
+%\setbeamerfont{sidebar right}{parent=sidebar}
+
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries,shape=\upshape}
+\setbeamerfont{framesubtitle}{size=\footnotesize,parent=frametitle}
+
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{caption name}{parent=caption}
+
+\setbeamerfont{button}{size=\tiny}
+
+\setbeamerfont{block body}{shape=\upshape}
+\setbeamerfont{block body alerted}{parent={block body,alerted text}}
+\setbeamerfont{block body example}{parent={block body,alerted text}}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries,shape=\upshape}
+\setbeamerfont{block title alerted}{parent={block title,alerted text}}
+\setbeamerfont{block title example}{parent={block title,example text}}
+
+\setbeamerfont{item}{}
+\setbeamerfont{subitem}{parent=item}
+\setbeamerfont{subsubitem}{parent=subitem}
+
+\setbeamerfont{item projected}{parent={item,projected text}}
+\setbeamerfont{subitem projected}{parent=item projected}
+\setbeamerfont{subsubitem projected}{parent=subitem projected}
+
+\setbeamerfont{itemize item}{parent=item}
+\setbeamerfont{itemize subitem}{parent=subitem}
+\setbeamerfont{itemize subsubitem}{parent=subsubitem}
+
+\setbeamerfont{enumerate item}{parent=item}
+\setbeamerfont{enumerate subitem}{parent=subitem}
+\setbeamerfont{enumerate subsubitem}{parent=subsubitem}
+
+\setbeamerfont{itemize/enumerate body}{}
+\setbeamerfont{itemize/enumerate subbody}{parent=itemize/enumerate body}
+\setbeamerfont{itemize/enumerate subsubbody}{parent=itemize/enumerate subbody}
+
+%\setbeamerfont{description item}{parent=item}
+
+\setbeamerfont{projected text}{parent={tiny structure}}
+
+%\setbeamerfont{abstract}{size=\small}
+%\setbeamerfont{abstract title}{parent={abstract,structure},size=\normalsize}
+
+%\setbeamerfont{verse}{shape=\itshape}
+
+\setbeamerfont{quotation}{shape=\upshape}
+\setbeamerfont{quote}{parent=quotation}
+
+%\setbeamerfont{note page}{size=\small}
+%\setbeamerfont{note title}{parent=note page}
+%\setbeamerfont{note date}{size=\footnotesize}
+
+\setbeamerfont{page number in head/foot}{series=\mdseries}
+
+\mode<all>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Font sizes redefinition.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<presentation>
+
+\if@yandex@keepfontsizes@\else% if the font sizes should be redefined
+	\gdef\Huge{\fontsize{37.27pt}{44.73pt}\selectfont}%
+	\gdef\huge{\fontsize{31.06pt}{37.27pt}\selectfont}%       120
+	\gdef\LARGE{\fontsize{25.36pt}{30.43pt}\selectfont}%
+	\gdef\Large{\fontsize{20.7pt}{24.85pt}\selectfont}%       80
+	\gdef\large{\fontsize{16.37pt}{19.64pt}\selectfont}%
+	\gdef\normalsize{\fontsize{12.94pt}{15.53pt}\selectfont}% 50
+	\gdef\small{\fontsize{10.02}{12.02}\selectfont}%
+	\gdef\footnotesize{\fontsize{7.76pt}{9.32pt}\selectfont}% 30
+	\gdef\scriptsize{\fontsize{6.01}{7.21}\selectfont}%
+	\gdef\tiny{\scriptsize}%
+\fi%
+
+\mode<all>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% External fonts.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<presentation>
+
+%\if@yandex@keepsansfont@\else% if the sans family font should be redefined
+%	\setsansfont{Textbook New}[%
+%		UprightFont = TextbookNew-Light,%
+%		BoldFont    = TextbookNew-Regular%
+%	]%
+%	\newfontfamily{\cyrillicfont}{TextbookNew-Light}%
+%	\newfontfamily{\cyrillicfontbf}{TextbookNew-Regular}%
+%\fi%
+
+\if@yandex@keepmonofont@\else% if the mono family font should be redefined
+	\defaultfontfeatures{Scale=MatchLowercase}%
+	\setmonofont{Input Mono}%
+	\newfontfamily{\cyrillicfonttt}{Input Mono}%
+\fi%
+
+\if@yandex@keepmathfont@\else% if the math font should be redefined
+	\setmathfont[range=\mathup/{latin,Latin,num}]{TextbookNew-Light}%
+	\setmathfont[range=\mathit/{latin,Latin,num}]{TextbookNew-Light}%
+	\setmathfont[range=\mathbfup/{latin,Latin,num}]{TextbookNew-Regular}%
+	\setmathfont[range=\mathbfit/{latin,Latin,num}]{TextbookNew-Regular}%
+	\newfontfamily{\cyrillicfont}{TextbookNew-Light}%
+	\newfontfamily{\cyrillicfontbf}{TextbookNew-Regular}%
+\fi%
+
+\mode<all>
