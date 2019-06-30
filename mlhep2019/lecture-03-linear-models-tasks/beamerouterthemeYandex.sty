@@ -1,0 +1,211 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%  Yandex outer theme for LaTeX beamer class.                                  %
+%  Copyright 2015 by Yandex.                                                   %
+%  Author: Kirill Chuvilin <kirill.chuvilin@yandex.ru>, 2015                   %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<presentation>
+
+% Mini frames
+%\defbeamertemplateparent{mini frames}
+%  {mini frame,mini frame in current section,mini frame in current subsection}
+%{}
+
+%\defbeamertemplate*{mini frame}{default}
+%{%
+%  \begin{pgfpicture}{0pt}{0pt}{0.1cm}{0.1cm}
+%    \pgfpathcircle{\pgfpoint{0.05cm}{0.05cm}}{0.05cm}
+%    \pgfusepath{fill,stroke}
+%  \end{pgfpicture}%
+%}
+%[action]
+%{
+%  \setbeamersize{mini frame size=.14cm,mini frame offset=.03cm}
+%}
+%
+%\defbeamertemplate*{mini frame in current section}{default}
+%{%
+%  \begin{pgfpicture}{0pt}{0pt}{0.1cm}{0.1cm}
+%    \pgfpathcircle{\pgfpoint{0.05cm}{0.05cm}}{0.05cm}
+%    \pgfusepath{stroke}
+%  \end{pgfpicture}%
+%}
+%
+%\defbeamertemplate*{mini frame in current subsection}{default}
+%{%
+%  \begin{pgfpicture}{0pt}{0pt}{0.1cm}{0.1cm}
+%    \pgfpathcircle{\pgfpoint{0.05cm}{0.05cm}}{0.05cm}
+%    \pgfusepath{stroke}
+%  \end{pgfpicture}%
+%}
+%
+%\defbeamertemplate*{mini frame in other section}{default}[1][50]
+%{\color{fg!#1!bg}\usebeamertemplate{mini frame in current section}}
+%\defbeamertemplate*{mini frame in other subsection}{default}[1][50]
+%{\color{fg!#1!bg}\usebeamertemplate{mini frame in current subsection}}
+
+
+% Navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+%% Section and subsections in head/foot
+%
+%\defbeamertemplate*{section in head/foot}{default}
+%{\insertsectionhead}
+%
+%\defbeamertemplate*{section in head/foot shaded}{default}[1][50]
+%{\color{fg!#1!bg}\usebeamertemplate{section in head/foot}}
+%
+%\defbeamertemplate*{subsection in head/foot}{default}
+%{\insertsubsectionhead}
+%
+%\defbeamertemplate*{subsection in head/foot shaded}{default}[1][50]
+%{\color{fg!#1!bg}\usebeamertemplate{subsection in head/foot}}
+%
+%\defbeamertemplate*{subsubsection in head/foot}{default}
+%{\insertsubsubsectionhead}
+%
+%\defbeamertemplate*{subsubsection in head/foot shaded}{default}[1][50]
+%{\color{fg!#1!bg}\usebeamertemplate{subsubsection in head/foot}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Headline and footline.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\defbeamertemplate*{headline}{Yandex}{}
+
+% Define the footnote.
+% #1 the footnote as a text line
+\def\footnote#1{\gdef\@yandex@footnote{#1}}
+\def\@yandex@footnote{} % the footnote container
+
+\defbeamertemplate*{footline}{Yandex}{% the footer
+%	\vskip-15\@yandex@vpx% vertical correction
+%	\vskip40\@yandex@vpx%
+%	\hspace{80\@yandex@hpx}%
+%	\begin{minipage}[t][40\@yandex@vpx]{1760\@yandex@hpx}%
+%		\usebeamerfont*{footline}%
+%		\ifnum\pdfstrcmp{\@yandex@footnote}{}=0% if the footnote isn't defined
+%			\textbf{\insertshortauthor}% insert the short author name
+%		\else% if the footnote is defined
+%			\textbf{\@yandex@footnote}% insert the footnote
+%			\gdef\@yandex@footnote{}% reset the footnote
+%		\fi%
+%		\hfill%
+%		\insertframenumber%
+%	\end{minipage}%
+%	\vskip-2\@yandex@vpx% vertical correction
+%	\vskip40\@yandex@vpx%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Background
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\defbeamertemplate*{background}{Yandex}{}
+\defbeamertemplate*{background canvas}{Yandex}{}
+%{\ifbeamercolorempty[bg]{background canvas}{}{\color{bg}\vrule width\paperwidth height\paperheight}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sidebars.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamersize{text margin left=0.042\paperwidth}
+\setbeamersize{text margin right=0.042\paperwidth}
+\defbeamertemplate*{sidebar left}{Yandex}{}
+\defbeamertemplate*{sidebar right}{Yandex}{}
+\defbeamertemplate*{sidebar canvas left}{Yandex}{}
+\defbeamertemplate*{sidebar canvas right}{Yandex}{}
+
+
+%% Frame title: default
+%
+%\defbeamertemplate*{frametitle}{default}[1][left]
+%{
+%  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+%  \@tempdima=\textwidth%
+%  \advance\@tempdima by\beamer@leftmargin%
+%  \advance\@tempdima by\beamer@rightmargin%
+%  \begin{beamercolorbox}[sep=0.3cm,#1,wd=\the\@tempdima]{frametitle}
+%    \usebeamerfont{frametitle}%
+%    \vbox{}\vskip-1ex%
+%    \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+%    \strut\insertframetitle\strut\par%
+%    {%
+%      \ifx\insertframesubtitle\@empty%
+%      \else%
+%      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
+%      \fi
+%    }%
+%    \vskip-1ex%
+%    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+%  \end{beamercolorbox}%
+%}
+%
+%\def\beamer@fteright{\vskip0.35cm\advance\leftskip by 1.7cm\advance\rightskip by1.7cm}
+%
+%
+%% Frame title continuations, default
+%
+%\defbeamertemplate*{frametitle continuation}{default}{\insertcontinuationcountroman}
+%
+%
+%
+%% Notes
+%
+%\defbeamertemplate*{note page}{default}
+%{%
+%  {%
+%    \scriptsize
+%    \usebeamerfont{note title}\usebeamercolor[fg]{note title}%
+%    \ifbeamercolorempty[bg]{note title}{}{%
+%      \insertvrule{.25\paperheight}{note title.bg}%
+%      \vskip-.25\paperheight%
+%      \nointerlineskip%
+%    }%
+%    \vbox{
+%      \hfill\insertslideintonotes{0.25}\hskip-\Gm@rmargin\hskip0pt%
+%      \vskip-0.25\paperheight%
+%      \nointerlineskip
+%      \begin{pgfpicture}{0cm}{0cm}{0cm}{0cm}
+%        \begin{pgflowlevelscope}{\pgftransformrotate{90}}
+%          {\pgftransformshift{\pgfpoint{-2cm}{0.2cm}}%
+%          \pgftext[base,left]{\usebeamerfont{note date}\usebeamercolor[fg]{note date}\the\year-\ifnum\month<10\relax0\fi\the\month-\ifnum\day<10\relax0\fi\the\day}}
+%        \end{pgflowlevelscope}
+%      \end{pgfpicture}}
+%    \nointerlineskip
+%    \vbox to .25\paperheight{\vskip0.5em
+%      \hbox{\insertshorttitle[width=8cm]}%
+%      \setbox\beamer@tempbox=\hbox{\insertsection}%
+%      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip4pt\raise3pt\hbox{\vrule
+%            width0.4pt height7pt\vrule width 9pt
+%            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsection\end{minipage}}\fi%
+%      }%
+%      \setbox\beamer@tempbox=\hbox{\insertsubsection}%
+%      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip17.4pt\raise3pt\hbox{\vrule
+%            width0.4pt height7pt\vrule width 9pt
+%            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsubsection\end{minipage}}\fi%
+%      }%
+%      \setbox\beamer@tempbox=\hbox{\insertshortframetitle}%
+%      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip30.8pt\raise3pt\hbox{\vrule
+%            width0.4pt height7pt\vrule width 9pt
+%            height0.4pt}}\hskip1pt\hbox{\insertshortframetitle[width=7cm]}\fi%
+%      }%
+%      \vfil}%
+%  }%
+%  \ifbeamercolorempty[bg]{note page}{}{%
+%    \nointerlineskip%
+%    \insertvrule{.75\paperheight}{note page.bg}%
+%    \vskip-.75\paperheight%
+%  }%
+%  \vskip.25em
+%  \nointerlineskip
+%  \insertnote
+%}
+
+\mode<all>
