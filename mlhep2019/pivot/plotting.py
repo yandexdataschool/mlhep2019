@@ -31,14 +31,20 @@ def draw_response(xs, ys, probabilities, data, labels):
   plt.scatter(data[labels > 0.5, 0], data[labels > 0.5, 1])
   plt.scatter(data[labels < 0.5, 0], data[labels < 0.5, 1])
 
-  plt.contour(xs, ys, probabilities, levels=[0.5], colors=['black'], linewidths=[3], linestyles=['dashed'])
+  plt.contour(
+    xs, ys, probabilities, levels=[0.25, 0.5, 0.75],
+    colors=['black', 'black', 'black'],
+    linewidths=[3, 3, 3],
+    linestyles=['dashed', 'solid', 'dashed']
+  )
 
-def nuisance_prediction_hist(predictions, nuisance, names=None, nuisance_bins=20, prediction_bins=20):
+def nuisance_prediction_hist(predictions, nuisance, labels, names=None, nuisance_bins=10, prediction_bins=10):
   """
   Plots distribution of predictions against nuisance parameter.
 
   :param predictions: a tuple of 1D numpy arrays containing predictions of models;
   :param nuisance: a 1D numpy array containing values of the nuisance parameter;
+  :param labels: a 1D numpy array with labels;
   :param names: names of the models;
   :param nuisance_bins: number of bins for the nuisance parameter, ignored if `nuisance` is an array of an integer type;
   :param prediction_bins: number of bins for the predictions.
@@ -60,26 +66,59 @@ def nuisance_prediction_hist(predictions, nuisance, names=None, nuisance_bins=20
     for proba in predictions
   ]
 
+  n_classes = np.max(labels) + 1
+
+  class_hists = [
+    [
+      np.histogram2d(proba[labels == y], nuisance[labels == y], bins=(p_bins, nu_bins))[0]
+      for y in range(n_classes)
+    ] for proba in predictions
+  ]
+
   max_v = max([ np.max(hist) for hist in hists ])
 
-  plt.subplots(nrows=nuisance_bins, ncols=len(predictions), figsize=(5 * len(predictions), 2 * nuisance_bins))
+  plt.subplots(nrows=nuisance_bins, ncols=len(predictions), figsize=(5 * len(predictions), 3 * nuisance_bins))
 
   for j, _ in enumerate(predictions):
     mi = mutual_information(hists[j])
 
+    class_mis = [
+      mutual_information(class_hists[j][k])
+      for k in range(n_classes)
+    ]
+
     for i in range(nuisance_bins):
       plt.subplot(nuisance_bins, len(predictions), i * len(predictions) + j + 1)
-      plt.plot(
+      plt.step(
         (p_bins[1:] + p_bins[:-1]) / 2,
-        hists[j][:, nuisance_bins - i - 1]
+        hists[j][:, nuisance_bins - i - 1],
+        label=(None if i != 0 else 'total'),
+        where='mid'
       )
-      plt.ylim([0, max_v])
+      for y in range(n_classes):
+        plt.step(
+          (p_bins[1:] + p_bins[:-1]) / 2,
+          class_hists[j][y][:, nuisance_bins - i - 1],
+          label=(None if i != 0 else ('class %d' % (y, ) )),
+          where='mid'
+        )
+
+      plt.ylim([0, 1.05 * max_v])
 
       if i == 0:
-        if names is not None:
-          plt.title('%s (MI=%.2e)' % (names[j], mi))
+        mis_str = ', '.join([ '$\mathrm{MI}_%d=\mathrm{%.2lf}$' % (k, x) for k, x in enumerate(class_mis) ])
+        if names is None:
+          name = 'Model %d' % (j, )
         else:
-          plt.title('Model %d (MI=%.2e)' % (j, mi))
+          name = names[j]
+
+        plt.title(
+          '%s, $\mathrm{MI}=\mathrm{%.2lf}$\n%s' % (
+            name, mi, mis_str
+          )
+        )
+
+        plt.legend()
 
 def nuasance_predictions_plot(model, data, nuisance):
   from .utils import mutual_information

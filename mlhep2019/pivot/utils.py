@@ -8,12 +8,14 @@ __all__ = [
 
 def mutual_information(hist):
   """
-  Mutual Informaion is used as a measure of dependency between variables
-  However, it is inherently difficult to reliably compute, thus, don't trust
-  this function too much. Also, it is generally not a good idea to use
+  Mutual Information is used as a measure of dependency between variables.
+
+  However, it is inherently difficult to reliably compute MI, thus, don't trust
+  this function too much. Also, it is generally not a good idea to use it for
   anything beyond 2 dimensions.
+
   :param hist: 2D histogram for X and Y random variables.
-  :return: rough estimation of mutual information between X and Y.
+  :return: rough estimation of mutual information coefficient between X and Y.
   """
   pmf = hist / np.sum(hist, dtype='float64')
   marginal_x, marginal_y = np.sum(pmf, axis=1), np.sum(pmf, axis=0)
@@ -31,7 +33,9 @@ def mutual_information(hist):
     np.where(hist > 0, pmf * (np.log(pmf) - np.log(marginal_y)[None, :]), 0)
   )
 
-  return H_xy - H_x - H_y
+  MI = H_xy - H_x - H_y
+
+  return MI
 
 def binarize(xs, n_bins=20):
   if xs.dtype.kind == 'i':
