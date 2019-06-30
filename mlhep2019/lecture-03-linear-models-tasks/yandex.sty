@@ -1,0 +1,747 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%  Yandex style package for LaTeX beamer class.                                %
+%  Author: Kirill Chuvilin <kirill.chuvilin@yandex.ru>, 2015                   %
+%  (C) Yandex                                                                  %
+%                                                                              %
+%  XeLaTeX compilator needed.                                                  %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{yandex}
+
+\usepackage{polyglossia}  % multilanguage support
+\usepackage{tikz}         % vector graphics
+\usepackage{calc}         % calculations with langth values
+\usepackage{mdframed}     % frames
+\usepackage{listings}     % listings
+\usepackage{forloop}      % loops
+%\usepackage{unicode-math} % math fonts control
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% General info.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\@yandex@insert@logo{\insertyandexlogo[height=80\@yandex@vpx,keepaspectratio]}% insert the main logo command
+\newcounter{@yandex@counter@addlogo}\setcounter{@yandex@counter@addlogo}{0} % amount of additional logos
+
+\newcommand\onbehalf[1]{\renewcommand\@onbehalf{#1}}
+\newcommand\@onbehalf{}
+
+% Define the main logo as Yandex general logo.
+\def\yandexlogo{\gdef\@yandex@insert@logo{\insertyandexlogo[height=80\@yandex@vpx,keepaspectratio]}}
+
+% Define the main logo as Yandex service logo.
+% #1 the service name
+\def\yandexservicelogo#1{\gdef\@yandex@insert@logo{\insertyandexservicelogo[height=80\@yandex@vpx,keepaspectratio]{#1}}}
+
+% Define the main logo as Yandex School of Data Analysis logo.
+\def\yandexschoollogo{\gdef\@yandex@insert@logo{\insertyandexschoollogo[height=80\@yandex@vpx,keepaspectratio]}}
+
+% Define the main logo as Yandex Data Facory logo.
+\def\yandexdatafactorylogo{\gdef\@yandex@insert@logo{\insertyandexdatafactorylogo[height=80\@yandex@vpx,keepaspectratio]}}
+
+% Define the main logo as Yandex Data Facory logo.
+\def\crayfislogo{\gdef\@yandex@insert@logo{\insertcrayfislogo[height=80\@yandex@vpx,keepaspectratio]}}
+
+% Define the main logo as Yandex Data Facory logo.
+\def\lhcblogo{\gdef\@yandex@insert@logo{\insertlhcblogo[height=80\@yandex@vpx,keepaspectratio]}}
+
+% Define the main logo as Yandex Data Facory logo.
+% #1 the logo code
+\def\addlogo#1{%
+	\stepcounter{@yandex@counter@addlogo}% step to the new logo
+	\expandafter\gdef\csname @yandex@addlogo\arabic{@yandex@counter@addlogo}\endcsname{#1}% store the logo code
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fonts.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\@yandex@pt}\setlength{\@yandex@pt}{0.2588105726872247pt}% "pt" size (just to simplify convertions)
+\def\Huge{\huge}
+\def\huge{\fontsize{120\@yandex@pt}{144\@yandex@pt}\selectfont}
+%\def\huge{\fontsize{31pt}{37pt}\selectfont}
+\def\LARGE{\large}
+\def\Large{\large}
+\def\large{\fontsize{80\@yandex@pt}{96\@yandex@pt}\selectfont}
+%\def\large{\fontsize{21pt}{25pt}\selectfont}
+\def\normalsize{\fontsize{50\@yandex@pt}{60\@yandex@pt}\selectfont}
+%\def\normalsize{\fontsize{13pt}{16pt}\selectfont}
+\def\small{\fontsize{30\@yandex@pt}{36\@yandex@pt}\selectfont}
+%\def\small{\fontsize{8pt}{10pt}\selectfont}
+\def\footnotesize{\small}
+\def\scriptsize{\small}
+\def\tiny{\small}
+
+\normalsize
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Language control.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\@yandex@commandbackup@setdefaultlanguage\setdefaultlanguage% backup the default command
+% Set the default language.
+% #1 the default language (russian, english)
+\def\setdefaultlanguage#1{% define the new command
+	\@yandex@commandbackup@setdefaultlanguage{#1}% call the default command
+	\def\@yandex@language{#1}% store the default language
+	\ifnum\pdfstrcmp{#1}{russian}=0% if the language is russian
+		\patchcmd{\theorem}{Theorem}{Теорема}{}{}%
+		\patchcmd{\lemma}{Lemma}{Лемма}{}{}%
+		\def\contacts{Контакты}%
+	\else%
+		\def\contacts{Contacts}%
+	\fi%
+}
+
+% Insert Yandex logo.
+% #1 the params for the \includegraphics command
+\newcommand{\insertyandexlogo}[1][]{%
+	\ifnum\pdfstrcmp{\@yandex@language}{russian}=0% if the language is russian
+		\includegraphics[#1]{yandex/logo_ru.eps}%
+	\else%
+		\includegraphics[#1]{yandex/logo_en.eps}%
+	\fi%
+}
+
+% Insert Yandex service logo.
+% #1 the params for the \includegraphics command
+% #2 the name of the service
+\newcommand{\insertyandexservicelogo}[2][]{%
+	\raisebox{18\@yandex@vpx}[80\@yandex@vpx]{\insertyandexlogo[width=111\@yandex@hpx]}%
+	\hspace{19\@yandex@hpx}%
+	\begingroup%
+		\raisebox{8\@yandex@vpx}[80\@yandex@vpx]{%
+			\setlength{\fboxsep}{8\@yandex@hpx}%
+			\colorbox{yandex-yellow}{%
+				{%
+					\setlength{\fboxsep}{0\@yandex@hpx}%
+					\colorbox{white}{%
+						\hspace{16\@yandex@hpx}%
+						\raisebox{20\@yandex@vpx}[65\@yandex@vpx]{%
+							\fontsize{38\@yandex@pt}{0}\selectfont\bfseries\upshape%
+							#2%
+						}%
+						\hspace{14.5\@yandex@hpx}%
+					}%
+				}%
+				\hspace{-\fboxsep}%
+			}%
+		}%
+		\hspace{-7\@yandex@hpx}%
+		\raisebox{0\@yandex@vpx}[80\@yandex@vpx]{%
+			\tikz{%
+				\draw[line width=8\@yandex@hpx,color=yandex-yellow]
+					(0\@yandex@hpx,-37\@yandex@vpx) -- (21\@yandex@vpx,0) -- (0\@yandex@hpx,37\@yandex@vpx);
+			}%
+		}%
+	\endgroup%
+}
+
+% Insert Yandex School of Data Analysis logo.
+% #1 the params for the \includegraphics command
+\newcommand{\insertyandexschoollogo}[1][]{\includegraphics[#1]{yandex/logo_shad.eps}}
+
+% Insert Yandex Data Facory logo.
+% #1 the params for the \includegraphics command
+\newcommand{\insertyandexdatafactorylogo}[1][]{\includegraphics[#1]{yandex/logo_ydf.eps}}
+
+% Insert Yandex Data Facory logo.
+% #1 the params for the \includegraphics command
+\newcommand{\insertcrayfislogo}[1][]{\includegraphics[#1]{yandex/crayfis.png}}
+
+% Insert Yandex Data Facory logo.
+% #1 the params for the \includegraphics command
+\newcommand{\insertlhcblogo}[1][]{\includegraphics[#1]{yandex/lhcb.jpg}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Predefined style colors.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{yandex-red}{rgb}{1,0,0}      % red
+\definecolor{yandex-yellow}{rgb}{1,0.8,0} % yellow
+\definecolor{yandex-black}{rgb}{0,0,0}    % black
+
+\definecolor{yandex-code-black}{RGB}{0,0,0}      % black for code
+\definecolor{yandex-code-red}{RGB}{255,0,0}      % red for code
+\definecolor{yandex-code-blue}{RGB}{52,120,190}  % blue for code
+\definecolor{yandex-code-orange}{RGB}{255,170,0} % orange for code
+\definecolor{yandex-code-green}{RGB}{0,170,50}   % orange for code
+\definecolor{yandex-code-purple}{RGB}{145,0,220} % purple for code
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pages templates.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\@yandex@hpx}\setlength{\@yandex@hpx}{0.0005208333333333333\paperwidth}% "pixel" size (just to simplify convertions)
+\newlength{\@yandex@vpx}\setlength{\@yandex@vpx}{0.0009259259259259259\paperheight}% "pixel" size (just to simplify convertions)
+
+\setbeamersize{text margin left=80\@yandex@hpx}
+\setbeamersize{text margin right=80\@yandex@hpx}
+\setbeamertemplate{navigation symbols}{} % no navigation symbols
+
+\def\@yandex@insertlogoframe{{%
+	\usebackgroundtemplate{% draw the image as a background
+		\begin{minipage}[b][\paperheight]{\paperwidth}%
+			\hfill\insertyandexlogo[width=503\@yandex@hpx]\hfill\null%
+			\vskip-2\@yandex@vpx% vertical correction
+			\vspace{480\@yandex@vpx}%
+		\end{minipage}%
+	}%
+	\frame[plain]{}% create the frame with the background
+}}
+\def\noyandexlogoframe{\def\@yandex@insertlogoframe{}}
+\AtBeginDocument{% the first page with logo at the document begin
+	\@yandex@insertlogoframe%
+}
+
+\setbeamerfont{title}{size=\huge,series=\mdseries,shape=\upshape}
+\setbeamertemplate{title page}{% title page
+\hspace{120\@yandex@hpx}%
+	\begin{minipage}[t][\paperheight]{1520\@yandex@hpx}%
+		\vskip80\@yandex@vpx%
+		\begin{minipage}[c][80\@yandex@vpx][c]{1520\@yandex@hpx}%
+			\setlength{\textheight}{80\@yandex@vpx}%
+			\@yandex@insert@logo%
+			\hfill%
+			\ifnum0<\value{@yandex@counter@addlogo}%
+				\hspace{40\@yandex@hpx}%
+				\csname @yandex@addlogo1\endcsname%
+			\fi%
+			\ifnum1<\value{@yandex@counter@addlogo}%
+				\hspace{40\@yandex@hpx}%
+				\csname @yandex@addlogo2\endcsname%
+			\fi%
+			\ifnum2<\value{@yandex@counter@addlogo}%
+				\hspace{40\@yandex@hpx}%
+				\csname @yandex@addlogo3\endcsname%
+			\fi%
+			\ifnum3<\value{@yandex@counter@addlogo}%
+				\hspace{40\@yandex@hpx}%
+				\csname @yandex@addlogo4\endcsname%
+			\fi%
+			\ifnum4<\value{@yandex@counter@addlogo}%
+				\hspace{40\@yandex@hpx}%
+				\csname @yandex@addlogo5\endcsname%
+			\fi%
+			\ifnum5<\value{@yandex@counter@addlogo}%
+				\hspace{40\@yandex@hpx}%
+				\csname @yandex@addlogo6\endcsname%
+			\fi%
+		\end{minipage}%
+		\vskip60\@yandex@vpx%
+		\begin{minipage}[b][520\@yandex@vpx][c]{1520\@yandex@hpx}%
+			\hyphenpenalty=10000%
+			\flushleft%
+			\usebeamerfont*{title}%
+			\inserttitle% insert the title
+			\ifnum\pdfstrcmp{\@onbehalf}{}=1
+				\vskip30\@yandex@vpx
+				\normalsize\@onbehalf
+			\fi
+			\vskip30\@yandex@vpx
+			\small\mdseries\upshape
+			\insertsubtitle% insert the title
+		\end{minipage}%
+		\vskip10\@yandex@vpx
+		\parbox[b]{1440\@yandex@hpx}{%
+			\normalsize\mdseries\upshape% set the font
+			\insertauthor% insert the author name
+		}
+		\vskip40\@yandex@vpx%
+		\parbox[b]{1520\@yandex@hpx}{
+			\small\bfseries\upshape%
+			\insertinstitute%
+		}%
+		\vspace{35\@yandex@vpx}%
+	\end{minipage}%
+}
+
+\def\@yandex@section{}
+\def\@yandex@subsection{}
+\def\@yandex@sectionframe{{% the frame to show section or subsection
+	\setbeamercolor{background canvas}{bg=yandex-yellow}%
+	\begin{frame}[plain]%
+		\hspace{160\@yandex@hpx}%
+		\begin{minipage}[t][\paperheight]{1440\@yandex@hpx}%
+			\vskip160\@yandex@vpx%
+			\begin{minipage}[t][80\@yandex@vpx][t]{1440\@yandex@hpx}%
+				\normalsize\mdseries\upshape%
+				\ifnum\pdfstrcmp{\@yandex@subsection}{}=1% if the subsection is defined
+					\insertsection%
+				\fi%
+			\end{minipage}%
+			\vskip-5\@yandex@vpx% vertical correction
+			\vskip80\@yandex@vpx%
+			\begin{minipage}[b][480\@yandex@vpx][c]{1440\@yandex@hpx}%
+				\hyphenpenalty=10000%
+				\flushleft%
+				\usebeamerfont*{title}%
+				\ifnum\pdfstrcmp{\@yandex@subsection}{}=0% if the subsection isn't defined
+					\insertsection%
+				\else% if the subsection is defined
+					\insertsubsection%
+				\fi%
+			\end{minipage}%
+		\end{minipage}%
+	\end{frame}%
+}}
+
+\let\@yandex@commandbackup@section\section% backup the default section command
+\def\section#1{% redefine the section command
+	\@yandex@commandbackup@section{#1}% call the default command
+	\def\@yandex@section{#1}% store the section name
+	\def\@yandex@subsection{}% reset the subsection name
+	\@yandex@sectionframe% render the frame
+}
+
+\let\@yandex@commandbackup@subsection\subsection% backup the default subsection command
+\def\subsection#1{% redefine the subsection command
+	\@yandex@commandbackup@subsection{#1}% call the default command
+	\def\@yandex@subsection{#1}% store the subsection name
+	\@yandex@sectionframe% render the frame
+}
+
+\newenvironment{textpictureframe}[2][]{% frame with text and picture
+	\begingroup%
+		\def\@frameparams{#1}% store the frame params
+		\gdef\@yandex@frametitle{#2}% store the frametitle
+		\def\picture##1{\gdef\@yandex@textpictureframe@picture{##1}}%
+		\begin{lrbox}{\@yandex@textpictureframe@savebox}%
+			\begin{minipage}{880\@yandex@hpx}%
+				\normalsize%
+}{%
+			\end{minipage}%
+		\end{lrbox}%
+		\begin{frame}[\@frameparams]%
+			\@yandex@commandbackup@frametitle{\@yandex@frametitle}% set the frame title
+			\usebox{\@yandex@textpictureframe@savebox}%
+			\ifnum\pdfstrcmp{\@yandex@textpictureframe@picture}{}=1% if the picture is defined
+				\hspace{80\@yandex@hpx}%
+				\parbox[c][720\@yandex@vpx][c]{800\@yandex@hpx}{%
+					\centerline{%
+						\includegraphics[width=800\@yandex@hpx,height=720\@yandex@vpx,keepaspectratio]{\@yandex@textpictureframe@picture}%
+					}%
+				}%
+				\def\@yandex@textpictureframe@picture{}% reset the picture
+			\fi%
+		\end{frame}%
+	\endgroup%
+}
+\def\@yandex@textpictureframe@picture{}        % the picture path
+\newsavebox{\@yandex@textpictureframe@savebox} % the savebox for the text
+
+\newenvironment{figuresframe}[2][]{% frame with multiple pictures
+	\begingroup%
+		\newcounter{@yandex@counter@figure}\setcounter{@yandex@counter@figure}{0}% figures counter
+		\def\figure{% environmet to define a figure
+			\stepcounter{@yandex@counter@figure}% step to the new figure
+			\expandafter\gdef\csname @yandex@figure\arabic{@yandex@counter@figure}@picture\endcsname{}% reset the picture of the figure
+			\expandafter\gdef\csname @yandex@figure\arabic{@yandex@counter@figure}@caption\endcsname{}% reset the caption of the figure
+		}%
+		\def\endfigure{}%
+		\def\picture##1{% define the picture of the figure
+			\expandafter\gdef\csname @yandex@figure\arabic{@yandex@counter@figure}@picture\endcsname{%
+				\includegraphics[width=640\@yandex@hpx,height=480\@yandex@vpx,keepaspectratio]{##1}%
+			}%
+		}%
+		\def\caption##1{% define the caption of the figure
+			\expandafter\gdef\csname @yandex@figure\arabic{@yandex@counter@figure}@caption\endcsname{##1}%
+		}%
+		\def\@insertfigure##1{% insert the figure by index
+			\ifnum##1<\value{@yandex@counter@figure}% if the figure is defined
+				\begin{minipage}[c][800\@yandex@vpx]{640\@yandex@hpx}%
+					\begin{minipage}[c][480\@yandex@vpx][c]{640\@yandex@hpx}%
+						\centerline{\csname @yandex@figure##1@picture\endcsname}%
+					\end{minipage}%
+					\vskip40\@yandex@vpx%
+					\begin{minipage}{640\@yandex@hpx}%
+						\normalsize\mdseries\upshape%
+						\csname @yandex@figure##1@caption\endcsname%
+					\end{minipage}%
+					\vskip0pt%
+					\vfill%
+					\vskip0pt%
+				\end{minipage}%
+			\fi%
+		}%
+		\begin{frame}[environment=contactsframe,#1]{#2}%
+}{%
+			\stepcounter{@yandex@counter@figure}% the counter is just after the last figure index
+			\hspace{120\@yandex@hpx}%
+			\begin{minipage}[t][600\@yandex@vpx][c]{1520\@yandex@hpx}%
+				\vskip80\@yandex@vpx%
+				\@insertfigure{1}%
+				\hspace{240\@yandex@hpx}%
+				\@insertfigure{2}%
+			\end{minipage}%
+			\footnote{\null}%
+		\end{frame}%
+	\endgroup%
+}
+
+\newenvironment{pictureframe}{% frame with picture
+	\begingroup%
+		\gdef\@yandex@frametitle{}% reset the frametitle
+		\def\frametitle##1{\gdef\@yandex@frametitle{##1}}% redefine the frametitle command to store the frame title
+		\def\@yandex@picture{}% container for the picture path
+		\def\@yandex@caption{}% container for the cation
+		\def\picture##1{\def\@yandex@picture{##1}}% the picture path setter
+		\def\caption##1{\def\@yandex@caption{##1}}% the cation setter
+}{%
+		\ifnum\pdfstrcmp{\@yandex@frametitle}{}=0% if the frame title isn't defined
+			\begingroup%
+			\ifnum\pdfstrcmp{\@yandex@caption}{}=0% if the caption isn't defined
+				\usebackgroundtemplate{%
+					\begin{minipage}[t][\paperheight]{\paperwidth}%
+						\vfill%
+						\centerline{%
+							\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\@yandex@picture}%
+						}%
+						\vfill\null%
+					\end{minipage}%
+				}%
+				\frame[plain]{}%
+			\else% if the cation is defined
+				\begin{frame}%
+					\centerline{%
+						\includegraphics[width=\textwidth,height=840\@yandex@vpx,keepaspectratio]{\@yandex@picture}%
+					}%
+					\footnote{\null\@yandex@caption}%
+				\end{frame}%
+			\fi%
+			\endgroup%
+		\else% if the frame title defined
+			\begin{frame}%
+				\@yandex@commandbackup@frametitle{\@yandex@frametitle}% set the frame title
+				\centerline{%
+					\includegraphics[width=\textwidth,height=640\@yandex@vpx,keepaspectratio]{\@yandex@picture}%
+				}%
+				\footnote{\null\@yandex@caption}%
+			\end{frame}%
+		\fi%
+	\endgroup%
+}
+
+\def\@yandex@quoteframe@author{}         % the author if the quote
+\newsavebox{\@yandex@quoteframe@savebox} % the save box for the quote text
+\newenvironment{quoteframe}{% frame with quote
+	\begingroup%
+		\def\author##1{\gdef\@yandex@quoteframe@author{##1}}%
+		\begin{lrbox}{\@yandex@quoteframe@savebox}%
+			\begin{minipage}{1440\@yandex@hpx}%
+				\huge%
+				\begin{@yandex@quote}{24\@yandex@hpx}{71\@yandex@hpx}%
+}{%
+				\end{@yandex@quote}%
+			\end{minipage}%
+		\end{lrbox}%
+		\usebackgroundtemplate{%
+			\vbox to \paperheight {%
+				\vskip240\@yandex@vpx%
+				\vbox to 560\@yandex@vpx {%
+					\vfill%
+					\hspace{240\@yandex@hpx}%
+					\usebox{\@yandex@quoteframe@savebox}%
+					\vfill%
+				}%
+				\vskip40\@yandex@vpx%
+				\vbox to 120\@yandex@vpx {%
+					\vfill
+					\hspace{335\@yandex@hpx}%
+					\parbox{1345\@yandex@hpx}{%
+						\normalsize%
+						\@yandex@quoteframe@author% insert the author name
+						\def\@yandex@quoteframe@author{}% reset the author name
+					}
+				}%
+			}%
+		}%
+		\frame[plain]{}%
+	\endgroup%
+}
+
+\newenvironment{contactframe}{% frame with single person contacts
+	\begingroup%
+		\def\@yandex@person@name{}% reset the name of the contact 
+		\def\name##1{\def\@yandex@person@name{##1}}% define the name of the contact
+		\def\@yandex@person@position{}% reset the position of the contact
+		\def\position##1{\def\@yandex@person@position{##1}}% define the position of the contact
+		\let\@commandbackup@contact\contact% backup the contact command
+		\newcounter{@yandex@counter@contact}\setcounter{@yandex@counter@contact}{0}% contacts counter
+		\def\contact##1##2{% defined contact ##2 of type ##1
+			\stepcounter{@yandex@counter@contact}% one more contact
+			\expandafter\def\csname @yandex@person@contact\arabic{@yandex@counter@contact}\endcsname{% define the contact
+				\@commandbackup@contact{##1}{##2}% store the contact
+			}%
+		}
+		\def\@insertcontact##1{% insert the contact
+			\begin{minipage}[t][80\@yandex@vpx]{680\@yandex@hpx}%
+				\ifnum##1<\value{@yandex@counter@contact}% if the contact is defined
+					\csname @yandex@person@contact##1\endcsname%
+				\fi%
+			\end{minipage}%
+		}%
+		\begin{frame}[environment=contactframe]%
+}{%
+			\stepcounter{@yandex@counter@contact}%
+			\hspace{160\@yandex@hpx}%
+			\begin{minipage}[t][880\@yandex@vpx]{1600\@yandex@hpx}%
+				\vskip160\@yandex@vpx%
+				\begin{minipage}[t][440\@yandex@vpx]{1440\@yandex@hpx}%
+					\huge\mdseries\upshape%
+					\contacts%
+					\normalsize\mdseries\upshape%
+					\vskip2ex%
+					\@yandex@person@name\\
+					\@yandex@person@position\\
+				\end{minipage}%
+				\vskip-7\@yandex@vpx% vertical correction
+				\begin{minipage}[t][240\@yandex@vpx]{1440\@yandex@hpx}%
+					\@insertcontact{1}%
+					\hspace{80\@yandex@hpx}%
+					\@insertcontact{3}%
+					\vskip80\@yandex@vpx
+					\@insertcontact{2}%
+					\hspace{80\@yandex@hpx}%
+					\@insertcontact{4}%
+				\end{minipage}%
+				\vskip-7\@yandex@vpx% vertical correction
+			\end{minipage}%
+			\footnote{\null}%
+		\end{frame}%
+	\endgroup%
+}
+
+\newenvironment{contactsframe}{% frame with multiple persons contacts
+	\begingroup%
+		\newcounter{@yandex@counter@person}\setcounter{@yandex@counter@person}{0}% persons counter
+		\def\person{% environmet to define a person
+			\stepcounter{@yandex@counter@person}% step to the new person
+			\expandafter\gdef\csname @yandex@person\arabic{@yandex@counter@person}@name\endcsname{}% reset the name of the person
+			\expandafter\gdef\csname @yandex@person\arabic{@yandex@counter@person}@position\endcsname{}% reset the position of the person
+			\expandafter\gdef\csname @yandex@person\arabic{@yandex@counter@person}@contact\endcsname{}% reset the contact of the person
+		}%
+		\def\endperson{}%
+		\def\name##1{\expandafter\gdef\csname @yandex@person\arabic{@yandex@counter@person}@name\endcsname{##1}}% define the name of the person
+		\def\position##1{\expandafter\gdef\csname @yandex@person\arabic{@yandex@counter@person}@position\endcsname{##1}}% define the position of the person
+		\let\@commandbackup@contact\contact% backup the contact command
+		\def\contact##1##2{% define a contact ##2 of type ##1 of the person
+			\expandafter\gdef\csname @yandex@person\arabic{@yandex@counter@person}@contact\endcsname{% define the contact
+				\@commandbackup@contact{##1}{##2}% store the contact
+			}%
+		}%
+		\def\@insertperson##1{% insert the person by index
+			\ifnum##1<\value{@yandex@counter@person}% if the person is defined
+				\begin{minipage}[t][250\@yandex@vpx]{700\@yandex@hpx}%
+					\normalsize\mdseries\upshape%
+					\csname @yandex@person##1@name\endcsname\\%
+					\csname @yandex@person##1@position\endcsname%
+					\vskip1.5ex%
+					\csname @yandex@person##1@contact\endcsname%
+				\end{minipage}%
+			\fi%
+		}%
+		\begin{frame}[environment=contactsframe]%
+}{%
+			\stepcounter{@yandex@counter@person}% the counter is just after the last person index
+			\hspace{160\@yandex@hpx}%
+			\begin{minipage}[t][880\@yandex@vpx]{1600\@yandex@hpx}%
+				\vskip80\@yandex@vpx%
+				\begin{minipage}[t][160\@yandex@vpx]{1440\@yandex@hpx}%
+					\huge%
+					\contacts%
+				\end{minipage}%
+				\vskip-4\@yandex@vpx% vertical correction
+				\vskip40\@yandex@vpx%
+				\begin{minipage}[t][600\@yandex@vpx]{1440\@yandex@hpx}%
+					\@insertperson{1}%
+					\hspace{40\@yandex@hpx}%
+					\@insertperson{2}%
+					\vskip100\@yandex@vpx
+					\@insertperson{3}%
+					\hspace{40\@yandex@hpx}%
+					\@insertperson{4}%
+				\end{minipage}%
+			\end{minipage}%
+			\footnote{\null}%
+		\end{frame}%
+	\endgroup%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame elements templates.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamertemplate{headline}{}% the header
+
+% Define the footnote.
+% #1 the footnote as a text line
+\def\footnote#1{\gdef\@yandex@footnote{#1}} 
+\def\@yandex@footnote{} % the footnote container
+
+\setbeamerfont{footline}{size=\small,series=\mdseries,shape=\upshape}
+\setbeamertemplate{footline}{% the footer
+	\vskip-15\@yandex@vpx% vertical correction
+	\vskip40\@yandex@vpx%
+	\hspace{80\@yandex@hpx}%
+	\begin{minipage}[t][40\@yandex@vpx]{1760\@yandex@hpx}%
+		\usebeamerfont*{footline}%
+		\ifnum\pdfstrcmp{\@yandex@footnote}{}=0% if the footnote isn't defined
+			\textbf{\insertshortauthor}% insert the short author name
+		\else% if the footnote is defined
+			\textbf{\@yandex@footnote}% insert the footnote
+			\gdef\@yandex@footnote{}% reset the footnote
+		\fi%
+		\hfill%
+		\insertframenumber%
+	\end{minipage}%
+	\vskip-2\@yandex@vpx% vertical correction
+	\vskip40\@yandex@vpx%
+}
+
+\def\@yandex@frametitle{}% frametitle storage
+\let\@yandex@commandbackup@frametitle\frametitle% backup the default frametitle command
+\def\frametitle#1{% redefine the frametitle command
+	\@yandex@commandbackup@frametitle{#1}% call the default command
+	\gdef\@yandex@frametitle{#1}% store the frame title
+}
+\setbeamercolor{frametitle}{fg=yandex-black}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries,shape=\upshape}
+\setbeamertemplate{frametitle}{%
+	\vskip-4\@yandex@vpx% vertical correction
+	\vskip80\@yandex@vpx%
+	\begin{minipage}[c]{1760\@yandex@hpx}%
+		\hyphenpenalty=10000%
+		\flushleft%
+		\usebeamerfont*{frametitle}%
+		\insertframetitle%
+		\vfill\null%
+	\end{minipage}%
+	\vskip-5\@yandex@vpx% vertical correction
+	\vskip-80\@yandex@vpx%
+}
+
+\setbeamercolor{block title}{fg=yandex-black,bg=yandex-yellow}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries,shape=\upshape}
+\setbeamercolor{block body}{fg=yandex-black,bg=}
+\setbeamerfont{block body}{size=\normalsize,series=\mdseries,shape=\upshape}
+\setbeamertemplate{block begin}{
+	\begin{mdframed}[%
+		middlelinecolor=yandex-blak,
+		middlelinewidth=2\@yandex@hpx,
+		backgroundcolor=yandex-yellow,
+		skipbelow=0pt
+	]%
+		\usebeamerfont*{block title}%
+		\insertblocktitle%
+	\end{mdframed}%
+	\vskip-2\@yandex@hpx%
+	\begin{mdframed}[%
+		middlelinecolor=yandex-blak,
+		middlelinewidth=2\@yandex@hpx,
+		skipabove=0pt
+	]%
+		\usebeamerfont{block body}%
+}
+\setbeamertemplate{block end}{%
+	\end{mdframed}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lists.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamerfont*{itemize/enumerate subitem}{parent=itemize/enumerate item}
+\setbeamerfont*{itemize/enumerate subsubitem}{parent=itemize/enumerate subitem}
+\setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+\setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate subbody}
+\setbeamercolor{itemize item}{fg=yandex-black}
+\setbeamercolor{itemize subitem}{parent=itemize item}
+\setbeamercolor{itemize subsubitem}{parent=itemize subitem}
+\setbeamercolor{enumerate item}{fg=yandex-black}
+\setbeamercolor{enumerate subitem}{parent=enumerate item}
+\setbeamercolor{enumerate subsubitem}{parent=enumerate subitem}
+\defbeamertemplate{itemize item}{yandex}{\char"203A}
+\defbeamertemplate{itemize subitem}{yandex}{\char"203A}
+\defbeamertemplate{itemize subsubitem}{yandex}{\char"203A}
+\setbeamertemplate{itemize item}[yandex]
+\setbeamertemplate{itemize subitem}[yandex]
+\setbeamertemplate{itemize subsubitem}[yandex]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Elements.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Quote wrapper.
+% #1 width of the vertical line
+% #2 width of the text
+\newenvironment{@yandex@quote}[2]{%
+	\begingroup%
+		\setlength{\@yandex@quote@linewidth}{#1}%
+		\setlength{\@yandex@quote@sepwidth}{#2}%
+		\begin{lrbox}{\@yandex@quote@savebox}%
+			\begin{minipage}{\textwidth-\@yandex@quote@linewidth-\@yandex@quote@sepwidth}%
+}{%
+			\end{minipage}%
+		\end{lrbox}%
+		\setlength{\fboxsep}{0\@yandex@hpx}%
+		\colorbox{yandex-yellow}{%
+			\hspace{\@yandex@quote@linewidth}%
+			\setlength{\fboxsep}{\@yandex@quote@linewidth}%
+			\colorbox{white}{%
+				\hspace{\@yandex@quote@sepwidth}%
+				\hspace{-\@yandex@quote@linewidth}%
+				\usebox{\@yandex@quote@savebox}%
+			}%
+		}%
+	\endgroup%
+}
+\newsavebox{\@yandex@quote@savebox}
+\newlength{\@yandex@quote@linewidth}
+\newlength{\@yandex@quote@sepwidth}
+
+\renewenvironment{quote}{%
+	\vskip1ex%
+	\begin{@yandex@quote}{12\@yandex@hpx}{30\@yandex@hpx}%
+		\bfseries\ignorespaces%
+}{%
+	\end{@yandex@quote}%
+	\vskip1ex%
+}
+
+% Insert a contact.
+% #1 the contact type
+% #2 the contact text
+\def\contact#1#2{%
+	\makebox[2.4em][l]{\raisebox{-0.4em}{\includegraphics[height=1.6em,keepaspectratio]{yandex/contact_#1.eps}}}%
+	\makebox{#2}%
+}
+
+\lstset{%
+	basicstyle=\normalsize\selectfont\ttfamily\upshape\color{yandex-code-black},
+	identifierstyle=\color{yandex-code-green},
+	keywordstyle=\color{yandex-code-purple},
+	numberstyle=\color{yandex-code-blue},
+	stringstyle=\color{yandex-code-red},
+	showspaces=false,
+	showstringspaces=false,
+	captionpos=b,                    % the caption position to bottom
+}
+\lstnewenvironment{listing}[1]{%
+	\begingroup%
+		\lstset{language=#1}%
+}{%
+	\endgroup%
+}
+
+
+\newcommand\crule[3][black]{\textcolor{#1}{\rule{#2}{#3}}}
