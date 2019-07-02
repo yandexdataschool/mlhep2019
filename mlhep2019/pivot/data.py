@@ -76,10 +76,24 @@ def ensure_downloaded(root, *urls, root_url=None, warn=True):
   else:
     return tuple(results)
 
+def read_csv_gz(path):
+  import gzip
+
+  data = []
+
+  with gzip.open(path, 'r') as f:
+    for line in f:
+      data.append(
+        np.array([ float(x) for x in line.split(b',') ], dtype='float32')
+      )
+
+  return np.vstack(data)
+
+
 def get_csv_gz(url, root=None):
   root = get_data_root(root)
   path = ensure_downloaded(root, url)
-  data = np.genfromtxt(path, dtype='float32', delimiter=',')
+  data = read_csv_gz(path)
   return data[:, 1:], data[:, 0]
 
 get_susy = lambda root=None: get_csv_gz(SUSY_URL, root=root)
