@@ -1,1 +1,1 @@
-# Slides for Bayesian machine learning lectures
+# Slides for day 4
