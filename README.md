@@ -9,3 +9,5 @@ MLHEP'19 slides and notebooks
 * Day 2:
   * Ensembles of models; bagging, boosting, random forest [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-2/02_decision_trees_and_ensembles.ipynb)
   * Clustering [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-2/Clustering/Clustering.ipynb)
+* Day 4:
+  * Bayesian 2 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-4/Bayesian/SparseVD_assignment.ipynb)
