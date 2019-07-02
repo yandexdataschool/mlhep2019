@@ -54,6 +54,7 @@ def nuisance_prediction_hist(predictions, nuisance, labels, names=None, nuisance
   """
   from .utils import mutual_information, binarize
   indx, nu_bins = binarize(nuisance, n_bins=nuisance_bins)
+  nuisance_bins = nu_bins.shape[0] - 1
 
   p_bins = np.linspace(0, 1, num=prediction_bins)
 
