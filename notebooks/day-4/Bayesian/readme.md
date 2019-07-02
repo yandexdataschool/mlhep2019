@@ -1,1 +1,1 @@
-# Assignment in Sparse variational dropout
+# Assignment on Sparse variational dropout
