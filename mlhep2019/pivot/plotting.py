@@ -4,6 +4,8 @@ import torch
 import matplotlib.pyplot as plt
 
 __all__ = [
+  'plot_losses',
+
   'make_grid',
   'draw_response',
 
@@ -50,14 +52,8 @@ def nuisance_prediction_hist(predictions, nuisance, labels, names=None, nuisance
   :param prediction_bins: number of bins for the predictions.
   :return:
   """
-  from .utils import mutual_information
-
-  if nuisance.dtype.kind == 'i':
-    nuisance_bins = np.max(nuisance) + 1
-    nu_bins=np.arange(nuisance_bins + 1) - 0.5
-  else:
-    delta = np.max(nuisance) - np.min(nuisance)
-    nu_bins=np.linspace(np.min(nuisance) - 1e-3 * delta, np.max(nuisance) + 1e-3 * delta, num=nuisance_bins + 1)
+  from .utils import mutual_information, binarize
+  indx, nu_bins = binarize(nuisance, n_bins=nuisance_bins)
 
   p_bins = np.linspace(0, 1, num=prediction_bins)
 
@@ -192,3 +188,23 @@ def nuisance_metric_plot(predictions, labels, nuisance, metric_fn, base_level=0.
 
   if names is not None:
     plt.legend()
+
+def plot_losses(epoch, **kwargs):
+  plt.figure(figsize=(9, 4))
+
+  plt.xlabel('epoch')
+  plt.ylabel('loss')
+  for i, (name, losses) in enumerate(kwargs.items()):
+    xs = np.arange(epoch + 1)
+
+    mean = np.mean(losses[:(epoch + 1)], axis=1)
+    std = np.std(losses[:(epoch + 1)], axis=1)
+
+    color = plt.cm.Set1(i)
+    plt.plot(xs, mean, label=name, color=color)
+    plt.fill_between(xs, mean - std, mean + std, color=color, alpha=0.2)
+
+  n_epoches = max([ losses.shape[0] for losses in kwargs.values() ])
+  plt.xlim([0, n_epoches - 1])
+
+  plt.legend()
