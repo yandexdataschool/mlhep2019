@@ -189,16 +189,21 @@ def nuisance_metric_plot(predictions, labels, nuisance, metric_fn, base_level=0.
   if names is not None:
     plt.legend()
 
-def plot_losses(epoch, **kwargs):
+def plot_losses(epoch=None, **kwargs):
   plt.figure(figsize=(9, 4))
 
   plt.xlabel('epoch')
   plt.ylabel('loss')
   for i, (name, losses) in enumerate(kwargs.items()):
-    xs = np.arange(epoch + 1)
+    if epoch is None:
+      iteration = losses.shape[0] - 1
+    else:
+      iteration = epoch
 
-    mean = np.mean(losses[:(epoch + 1)], axis=1)
-    std = np.std(losses[:(epoch + 1)], axis=1)
+    xs = np.arange(iteration + 1)
+
+    mean = np.mean(losses[:(iteration + 1)], axis=1)
+    std = np.std(losses[:(iteration + 1)], axis=1)
 
     color = plt.cm.Set1(i)
     plt.plot(xs, mean, label=name, color=color)
