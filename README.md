@@ -11,6 +11,7 @@ MLHEP'19 slides and notebooks
   * Clustering [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-2/Clustering/Clustering.ipynb)
 * Day 3:
   * Computing gradient by hand. Pytorch [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-3/seminar_pytorch.ipynb)
-  * Intro to Deep learning; Convolutional Neural Networks [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-3/how_to_shoot_yourself_in_the_foot_with_cnn.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-3/seminar_convnets.ipynb)
+  * Convolutional Neural Networks [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-3/seminar_convnets.ipynb);
+  * Model Zoo: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/Practical_DL/blob/spring2019/week04_finetuning/seminar_pytorch.ipynb)
 * Day 4:
   * Bayesian 2 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-4/Bayesian/SparseVD_assignment.ipynb)
