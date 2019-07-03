@@ -1,8 +1,5 @@
-Lecture slides: [tinyurl.com/mlhep19-dl-intro](https://tinyurl.com/mlhep19-dl-intro)
-
-## Practice
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-3/seminar_pytorch.ipynb)
-
+Lecture slides: __[tinyurl.com/mlhep19-dl-intro](https://tinyurl.com/mlhep19-dl-intro)__
+Practice: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-3/seminar_pytorch.ipynb)
 Running locally: as usual, go to `seminar_pytorch.ipynb` and follow instructions from there.
 
 
