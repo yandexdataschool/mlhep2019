@@ -135,7 +135,10 @@ def nuasance_predictions_plot(model, data, nuisance):
   plt.xlabel('Network predictions')
   plt.ylabel('Nuisance parameter')
 
-def nuisance_metric_plot(predictions, labels, nuisance, metric_fn, base_level=0.5, names=None, nuisance_bins=10):
+def nuisance_metric_plot(predictions, labels, nuisance, metric_fn, base_level=0.5, names=None, nuisance_bins=10, metric_name=None):
+  if metric_name is None:
+    metric_name = 'metric'
+
   from .utils import binarize
 
   indx, nu_bins = binarize(nuisance, nuisance_bins)
@@ -181,10 +184,10 @@ def nuisance_metric_plot(predictions, labels, nuisance, metric_fn, base_level=0.
 
   m_min = min([ np.min(metric) for metric in metrics ])
   m_max = max([ np.max(metric) for metric in metrics ])
-  m_delta = m_max - m_min
+  m_delta = max(m_max - m_min, 0.05)
 
   plt.ylim([min(m_min, base_level), m_max + 0.05 * m_delta ])
-  plt.ylabel('metric')
+  plt.ylabel(metric_name)
   plt.xlabel('nuisance parameter')
 
   if names is not None:

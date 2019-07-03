@@ -6,7 +6,6 @@ from urllib.parse import urlparse, urljoin
 import numpy as np
 
 __all__ = [
-  'get_higgs',
   'get_susy'
 ]
 
@@ -96,5 +95,12 @@ def get_csv_gz(url, root=None):
   data = read_csv_gz(path)
   return data[:, 1:], data[:, 0]
 
-get_susy = lambda root=None: get_csv_gz(SUSY_URL, root=root)
-get_higgs = lambda root=None: get_csv_gz(SUSY_URL, root=root)
+def get_susy(root=None):
+  try:
+    f = np.load('SUSY/susy.npz')
+    data, labels = f['data'], f['labels']
+  except FileNotFoundError:
+    data, labels = get_csv_gz(SUSY_URL, root=root)
+    np.savez('SUSY/susy.npz', data=data, labels=labels)
+
+  return data, labels
