@@ -1,6 +1,8 @@
 Lecture slides: __[tinyurl.com/mlhep19-dl-intro](https://tinyurl.com/mlhep19-dl-intro)__
+
 Lecture slides part2: __[tinyurl.com/mlhep19-dl-convnets](https://tinyurl.com/mlhep19-dl-convnets)__
-Lecture slides part3: __[yadi.sk/...](https://yadi.sk/i/eyCRxQHx3NH2dg)___
+
+Lecture slides part3: __[yadi.sk/...](https://yadi.sk/i/eyCRxQHx3NH2dg)__
 
 Practice pytorch: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-3/seminar_pytorch.ipynb)
 
