@@ -95,4 +95,16 @@ Sometimes it is desirable to make a classifier independent from nuisances within
 \forall y: \forall s: \forall z, z': P(f(X) = s \mid Z = z, Y = y) = P(f(X) = s \mid Z = z', Y = y)
 ~~~
 
+In this case adversary should be parameterized by target, i.e. receive $y$ as an additional input.
 
+## Summary
+
+### Summary
+
+- dependencies can be measured as quality of a trained model;
+- it is possible to pivot model with an adversary;
+- conditional pivoting is done by adding target as input feature to the adversary.
+
+### Literature
+
+- Louppe G, Kagan M, Cranmer K. Learning to pivot with adversarial networks. InAdvances in neural information processing systems 2017 (pp. 981-990).
