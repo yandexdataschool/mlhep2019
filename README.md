@@ -18,4 +18,4 @@ MLHEP'19 slides and notebooks
 * Day 4:
   * Bayesian 2 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-4/Bayesian/SparseVD_assignment.ipynb)
 * Day 5
-  * Language modeling [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github.com/yandexdataschool/mlhep2019/blob/master/notebooks/day-5/language_model/Dinosaur%20Island%20LM.ipynb)
+  * Language modeling [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github.com/yandexdataschool/mlhep2019/blob/master/notebooks/day-5/language_model/lm.ipynb)
