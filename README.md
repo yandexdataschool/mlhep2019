@@ -29,4 +29,5 @@ MLHEP'19 slides and notebooks
    * Introductory example 1 : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example1.ipynb)
    * Introductory example 2 : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example2.ipynb)
    * Practice : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example3.ipynb)
+   * GANs 1 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/06_1D_GAN.ipynb)
   
