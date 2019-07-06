@@ -26,7 +26,7 @@ MLHEP'19 slides and notebooks
   * Language modeling [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-5/language_model/lm.ipynb)
   * Tracking [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-5/tracking/RNN_practice.ipynb)
  * Day 6
-  * Introductory example 1 : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example1.ipynb)
-  * Introductory example 2 : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example2.ipynb)
-  * Practice : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example3.ipynb)
+   * Introductory example 1 : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example1.ipynb)
+   * Introductory example 2 : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example2.ipynb)
+   * Practice : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/causal/example3.ipynb)
   
