@@ -32,4 +32,7 @@ MLHEP'19 slides and notebooks
    * GANs 1 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/06_1D_GAN.ipynb)
    * GANs 2 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/06_GAN_faces_solution.ipynb)
    * GANs 3 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-6/06_DIRC_GAN.ipynb)
-  
+ * Day 8
+   * Black-Box:
+      * ABO: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/Pythia-Tune-ABO.ipynb)
+      * AVO: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/Pythia-Tune-AVO.ipynb)
