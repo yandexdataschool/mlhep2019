@@ -37,4 +37,4 @@ MLHEP'19 slides and notebooks
       * ABO: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/Pythia-Tune-ABO.ipynb)
       * AVO: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/Pythia-Tune-AVO.ipynb)
    * NN optimisation
-      * 1-scikit-search: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/NN_optimisation/1-scikit-search.ipynb)
+      * 1-scikit-search: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/NN_optimisation/1-scikit-search.ipynb)
