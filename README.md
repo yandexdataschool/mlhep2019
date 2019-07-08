@@ -38,3 +38,7 @@ MLHEP'19 slides and notebooks
       * AVO: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/Pythia-Tune-AVO.ipynb)
    * NN optimisation
       * 1-scikit-search: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/NN_optimisation/1-scikit-search.ipynb)
+      * 2-skorch: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/NN_optimisation/2-skorch.ipynb)
+      * 3-bayesian_optimization: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/NN_optimisation/3-bayesian_optimization.ipynb)
+      * 4-skorch_comet: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/NN_optimisation/4-skorch_comet.ipynb)
+      * 5-skorch_skopt_comet: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yandexdataschool/mlhep2019/blob/master/notebooks/day-8/NN_optimisation/5-skorch_skopt_comet.ipynb)
